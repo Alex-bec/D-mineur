@@ -39,13 +39,3 @@ for (let i=0;i<150;i+=10){
 	
 }	
 
-place=0
-while place<(55) {
-	i= get random int(15);
-	j= get random int(15);
-}
-
-if grille [i][j]==0 {
-	grille [i] [j]=1
-	place+=1
-}
