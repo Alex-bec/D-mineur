@@ -1,5 +1,8 @@
 document.addEventListener('click',clique)
 
+function getRandomInt (max) {
+	return Math.floor(Math.random() * max);
+}
 
 
 function creeGrille(){
@@ -22,6 +25,17 @@ function clique(e){
 	console.log(e)
 }	
 
+
+place=0
+while place < (55) {
+	j= getRandomInt(15);
+	i= getRandomInt(15);
+	if grille [j][i]==0{
+	grille [j] [i]=1;
+	place+=1;
+	}
+}
+
 let c = document.getElementById("canvas");
 let ctx = c.getContext("2d");
 ctx.lineWidth=1;
@@ -38,4 +52,3 @@ for (let i=0;i<150;i+=10){
 	ctx.lineTo(i,150);
 	
 }	
-
