@@ -25,15 +25,16 @@ function clique(e){
 	console.log(e)
 }	
 
-
-place=0
-while place < (55) {
+function init(){
+let place=0
+while (place < 40) {
 	j= getRandomInt(15);
 	i= getRandomInt(15);
-	if grille [j][i]==0{
-	grille [j] [i]=1;
+	if (grille [j][i]==0){
+	grille [j][i]=1;
 	place+=1;
 	}
+	console.log(grille)
 }
 
 let c = document.getElementById("canvas");
@@ -42,13 +43,17 @@ ctx.lineWidth=1;
 ctx.textAlign='center';
 ctx.textBaseline = 'middle';
 
-for (let i=0;i<150;i+=10){
-	ctx.moveTo(0,i);
-	ctx.lineTo(150,i);
-	
-}	
-for (let i=0;i<150;i+=10){
+function dessine(){
+	for (let i=0;i<150;i+=10){
+		ctx.moveTo(0,i);
+		ctx.lineTo(150,i);
+	}	
+
+	for (let i=0;i<150;i+=10){
 	ctx.moveTo(i,0);
-	ctx.lineTo(i,150);
-	
-}	
+	ctx.lineTo(i,150);	
+	}	
+	ctx.stroke);
+	for (let j=0;j<15;j++){
+		for (let i=0;i<15;i++){
+			ctx.fillText("⚑",i*10+5,j*10+5);
