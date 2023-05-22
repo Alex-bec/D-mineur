@@ -4,9 +4,9 @@ document.addEventListener('click',clique)
 
 function creeGrille(){
 	let grille=[];
-	for (let j=0;j<30;j++){
+	for (let j=0;j<15;j++){
 		let ligne =[];
-		for (let i=0;i<30;i++){
+		for (let i=0;i<15;i++){
 			ligne.push(0);
 		}	
 		grille.push(ligne);
@@ -28,16 +28,24 @@ ctx.lineWidth=1;
 ctx.textAlign='center';
 ctx.textBaseline = 'middle';
 
-for (let i=0;i<300;i+=10){
+for (let i=0;i<150;i+=10){
 	ctx.moveTo(0,i);
-	ctx.lineTo(300,i);
+	ctx.lineTo(150,i);
 	
 }	
-for (let i=0;i<300;i+=10){
+for (let i=0;i<150;i+=10){
 	ctx.moveTo(i,0);
-	ctx.lineTo(i,300);
+	ctx.lineTo(i,150);
 	
 }	
-ctx.stroke();
-ctx.fillText("⚑",15,75);
 
+place=0
+while place<(55) {
+	i= get random int(15);
+	j= get random int(15);
+}
+
+if grille [i][j]==0 {
+	grille [i] [j]=1
+	place+=1
+}
