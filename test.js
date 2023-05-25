@@ -1,7 +1,7 @@
 document.addEventListener('click',clique)
 
-function getRandomInt (max) {
-	return Math.floor(Math.random() * max);
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
 }
 
 
@@ -26,34 +26,44 @@ function clique(e){
 }	
 
 function init(){
-let place=0
-while (place < 40) {
-	j= getRandomInt(15);
-	i= getRandomInt(15);
-	if (grille [j][i]==0){
-	grille [j][i]=1;
-	place+=1;
+	let place=0
+	while (place < 55){
+		x= getRandomInt(15)
+		y= getRandomInt (15)
+		if (grille [y][x]==0){
+			grille[y][x]=1
+			place+=1
+		}
+		console.log(grille)
 	}
-	console.log(grille)
 }
+
+	
 
 let c = document.getElementById("canvas");
 let ctx = c.getContext("2d");
 ctx.lineWidth=1;
 ctx.textAlign='center';
 ctx.textBaseline = 'middle';
+init();
+dessine();
 
 function dessine(){
 	for (let i=0;i<150;i+=10){
 		ctx.moveTo(0,i);
 		ctx.lineTo(150,i);
 	}	
-
 	for (let i=0;i<150;i+=10){
-	ctx.moveTo(i,0);
-	ctx.lineTo(i,150);	
+		ctx.moveTo(i,0);
+		ctx.lineTo(i,150);
+		
 	}	
-	ctx.stroke);
-	for (let j=0;j<15;j++){
-		for (let i=0;i<15;i++){
-			ctx.fillText("⚑",i*10+5,j*10+5);
+	ctx.stroke();
+	for (let y=0;y<15;y++){
+		for (let x=0;x<15;x++){
+		if (grille[y][x]==1){
+			ctx.fillText("⚑",x*10+5,y*10+5);
+		}
+		}
+	}	
+}
