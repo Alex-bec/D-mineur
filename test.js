@@ -1,103 +1,71 @@
-    const boardSize = 8;
-    const mineCount = 10;
-    let board = [];
+    document.addEventListener('click',clique)
 
-    function createBoard() {
-      const boardElement = document.querySelector('.board');
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
-      for (let row = 0; row < boardSize; row++) {
-        for (let col = 0; col < boardSize; col++) {
-          const cell = document.createElement('div');
-          cell.classList.add('cell');
-          cell.dataset.row = row;
-          cell.dataset.col = col;
-          boardElement.appendChild(cell);
 
-          board.push({
-            element: cell,
-            row: row,
-            col: col,
-            isMine: false,
-            isRevealed: false
-          });
+function creeGrille(){
+	let grille=[];
+	for (let j=0;j<15;j++){
+		let ligne =[];
+		for (let i=0;i<15;i++){
+			ligne.push(0);
+		}	
+		grille.push(ligne);
+	}	
+	return grille;
+	}	
 
-          cell.addEventListener('click', handleClick);
-        }
-      }
-    }
+let grillecachee=creeGrille();
+let grillevisible=creeGrille();
 
-    function placeMines() {
-      for (let i = 0; i < mineCount; i++) {
-        let randomCell = board[Math.floor(Math.random() * board.length)];
-        if (!randomCell.isMine) {
-          randomCell.isMine = true;
-        } else {
-          i--;
-        }
-      }
-    }
+console.log(grillecachee);
 
-    function handleClick(event) {
-      const cell = event.target;
-      const row = parseInt(cell.dataset.row);
-      const col = parseInt(cell.dataset.col);
-      const clickedCell = board.find(cell => cell.row === row && cell.col === col);
+function clique(e){
+	console.log(e)
+}	
 
-      if (clickedCell.isMine) {
-        gameOver();
-      } else {
-        revealCell(clickedCell);
-      }
-    }
+function init(){
+	let place=0
+	while (place < 55){
+		x= getRandomInt(15)
+		y= getRandomInt (15)
+		if (grillecachee [y][x]==0){
+			grillecachee[y][x]=1
+			place+=1
+		}
+		console.log(grillecachee)
+	}
+}
 
-    function revealCell(cell) {
-      if (cell.isRevealed) {
-        return;
-      }
+	
 
-      cell.isRevealed = true;
-      cell.element.style.backgroundColor = '#ddd';
+let c = document.getElementById("canvas");
+let ctx = c.getContext("2d");
+ctx.lineWidth=1;
+ctx.textAlign='center';
+ctx.textBaseline = 'middle';
+init();
+dessine();
 
-      const adjacentCells = getAdjacentCells(cell);
-
-      const mineCount = adjacentCells.filter(adjCell => adjCell.isMine).length;
-      if (mineCount > 0) {
-        cell.element.textContent = mineCount;
-      } else {
-        adjacentCells.forEach(adjCell => revealCell(adjCell));
-      }
-    }
-
-    function getAdjacentCells(cell) {
-      const adjacentCells = [];
-
-      for (let row = -1; row <= 1; row++) {
-        for (let col = -1; col <= 1; col++) {
-          if (row === 0 && col === 0) {
-            continue;
-          }
-
-          const adjRow = cell.row + row;
-          const adjCol = cell.col + col;
-
-          if (adjRow >= 0 && adjRow < boardSize && adjCol >= 0 && adjCol < boardSize) {
-            const adjCell = board.find(cell => cell.row === adjRow && cell.col === adjCol);
-            adjacentCells.push(adjCell);
-          }
-        }
-      }
-
-      return adjacentCells;
-    }
-
-    function gameOver() {
-      board.forEach(cell => {
-        if (cell.isMine) {
-          cell.element.textContent = '💣';
-        }
-        cell.element.removeEventListener('click', handleClick);
-      });
-    }
-
-    createBoard();
-    placeMines();
+function dessine(){
+	for (let i=0;i<150;i+=10){
+		ctx.moveTo(0,i);
+		ctx.lineTo(150,i);
+	}	
+	for (let i=0;i<150;i+=10){
+		ctx.moveTo(i,0);
+		ctx.lineTo(i,150);
+		
+	}	
+	ctx.stroke();
+	for (let y=0;y<15;y++){
+		for (let x=0;x<15;x++){
+		if (grillevisible[y][x]==1){
+			ctx.fillText("⚑",x*10+5,y*10+5);
+		}
+		else if (grillevisible[y][x]==
+		}
+	}	
+}
