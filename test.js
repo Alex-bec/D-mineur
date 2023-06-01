@@ -1,4 +1,4 @@
-    document.addEventListener('click',clique)
+document.addEventListener('click',clique)
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
