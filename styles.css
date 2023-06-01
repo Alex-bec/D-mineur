@@ -1,12 +1,5 @@
- .board {
-      display: grid;
-      grid-template-columns: repeat(8, 30px);
-    }
-    .cell {
-      width: 30px;
-      height: 30px;
-      border: 1px solid #ccc;
-      text-align: center;
-      line-height: 30px;
-      cursor: pointer;
-    }
+canvas {
+    border: 1px solid black;
+	height:150px;
+	width:150px;
+}
