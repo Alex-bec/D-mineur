@@ -65,9 +65,10 @@ function dessine(){
 		if (grillevisible[y][x]==1){
 			ctx.fillText("⚑",x*10+5,y*10+5);
 		}
-		else if (grillevisible[y][x]==
-		if (0 == RasterCachedImage.graySpace)
-			(1== ctx.fillText("⚑",x*10+5,y*10+5)
+		else if (grillevisible[y][x]==0) {
+			RasterCachedImage.graySpace;
+		}
+		else if (grillevisible[y][x]==1) == ctx.fillText("⚑",x*10+5,y*10+5)
 			(2 == RasterCachedImage.whiteSpace)
 			(3 == ctx.fillText("1",x*10+5,y*10+5))
 			(4 == ctx.fillText("2",x*10+5,y*10+5))
