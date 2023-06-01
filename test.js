@@ -62,7 +62,7 @@ function dessine(){
 	for (let y=0;y<15;y++){
 		for (let x=0;x<15;x++){
 		if (grille[y][x]==1){
-			ctx.fillText("⚑",x*10+5,y*10+5);
+			ctx.fillText("💣",x*10+5,y*10+5);
 		}
 		}
 	}	
