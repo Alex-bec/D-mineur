@@ -80,3 +80,9 @@ function dessine(){
 			(11 == ctx.fillText("💣",x*10+5,y*10+5))
 	}	
 }
+
+canvas.addEventListener("click", function(event) {
+    
+    var x = event.pageX - canvas.offsetLeft;
+    var y = event.pageY - canvas.offsetTop;
+});
