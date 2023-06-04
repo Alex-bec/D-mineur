@@ -1,16 +1,160 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>DEMINEUR</title>
-	<link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-	    <h1>Démineur 2023</h1> 
-	    <canvas id="canvas" width=150 height=150></canvas>
-		 <script type="text/javascript" src="test.js"></script>
-	    <br>
-	 <a href="https://alex-bec.github.io/D-mineur">Retour</a>
-    </body>
+<head>
+  <title>Démineur</title>
+  <style>
+    .board {
+      display: grid;
+      grid-template-columns: repeat(8, 30px);
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+      text-align: center;
+      line-height: 30px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="board"></div>
 
+  <script>
+    const boardSize = 8;
+    const mineCount = 10;
+    let board = [];
+/**
+ * Crée le plateau de jeu.
+ */
+function createBoard() {
+  // Sélectionne l'élément HTML qui représente le plateau
+  const boardElement = document.querySelector('.board');
 
+  for (let row = 0; row < boardSize; row++) {
+    for (let col = 0; col < boardSize; col++) {
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      cell.dataset.row = row;
+      cell.dataset.col = col;
+      boardElement.appendChild(cell);
+
+      // Ajoute la cellule à la liste des cellules du plateau
+      board.push({
+        element: cell,
+        row: row,
+        col: col,
+        isMine: false,
+        isRevealed: false
+      });
+
+      cell.addEventListener('click', handleClick);
+    }
+  }
+}
+
+/**
+ * Place les mines aléatoirement sur le plateau.
+ */
+function placeMines() {
+  for (let i = 0; i < mineCount; i++) {
+    let randomCell = board[Math.floor(Math.random() * board.length)];
+    if (!randomCell.isMine) {
+      randomCell.isMine = true;
+    } else {
+      // Si la cellule est déjà une mine, réessaie
+      i--;
+    }
+  }
+}
+
+/**
+ * Gère le clic sur une cellule du plateau.
+ * @param {MouseEvent} event - L'événement de clic
+ */
+function handleClick(event) {
+  const cell = event.target;
+  const row = parseInt(cell.dataset.row);
+  const col = parseInt(cell.dataset.col);
+  const clickedCell = board.find(cell => cell.row === row && cell.col === col);
+
+  if (clickedCell.isMine) {
+    gameOver();
+  } else {
+    revealCell(clickedCell);
+  }
+}
+
+/**
+ * Révèle une cellule du plateau.
+ * @param {Object} cell - L'objet représentant la cellule
+ */
+function revealCell(cell) {
+  if (cell.isRevealed) {
+    return;
+  }
+
+  cell.isRevealed = true;
+  cell.element.style.backgroundColor = '#ddd';
+
+  const adjacentCells = getAdjacentCells(cell);
+
+  const mineCount = adjacentCells.filter(adjCell => adjCell.isMine).length;
+  if (mineCount > 0) {
+    cell.element.textContent = mineCount;
+  } else {
+    adjacentCells.forEach(adjCell => revealCell(adjCell));
+  }
+}
+
+/**
+ * Récupère les cellules adjacentes à une cellule donnée.
+ * @param {Object} cell - L'objet représentant la cellule
+ * @returns {Array} - Les cellules adjacentes
+ */
+function getAdjacentCells(cell) {
+  const adjacentCells = [];
+
+  for (let row = -1; row <= 1; row++) {
+    for (let col = -1; col <= 1; col++) {
+      if (row === 0 && col === 0) {
+        continue;
+      }
+
+      const adjRow = cell.row + row;
+      const adjCol = cell.col + col;
+
+      if (adjRow >= 0 && adjRow < boardSize && adjCol >= 0 && adjCol < boardSize) {
+        const adjCell = board.find(cell => cell.row === adjRow && cell.col === adjCol);
+        adjacentCells.push(adjCell);
+      }
+    }
+  }
+
+  return adjacentCells;
+}
+
+/**
+ * Affiche la fin du jeu lorsque le joueur clique sur une mine.
+ */
+function gameOver() {
+  board.forEach(cell => {
+    if (cell.isMine) {
+      cell.element.textContent = '💣';
+    }
+    cell.element.removeEventListener('click', handleClick);
+  });
+}
+
+/** Variables globales
+const boardSize = 8;
+const mineCount = 10;
+let board = [];*/
+
+// Appel des fonctions pour créer le plateau et placer les mines
+createBoard();
+placeMines();
+
+  </script>
+</body>
 </html>
